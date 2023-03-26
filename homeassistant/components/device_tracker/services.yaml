@@ -50,3 +50,9 @@ see:
           min: 0
           max: 100
           unit_of_measurement: "%"
+    entity_picture:
+      name: Entity Picture
+      description: Picture can be from local FS or Url
+      example: /local/mypic.jpg
+      selector:
+        text:

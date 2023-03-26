@@ -4,6 +4,8 @@
 # Stop on errors
 set -e
 
+git config --global --add safe.directory /workspaces/core
+
 cd "$(dirname "$0")/.."
 
 # Add default vscode settings if not existing
@@ -15,13 +17,16 @@ if [ ! -f "$SETTINGS_FILE" ]; then
 fi
 
 mkdir -p config
-
 if [ ! -n "$DEVCONTAINER" ] && [ ! -n "$VIRTUAL_ENV" ];then
+
   python3 -m venv venv
   source venv/bin/activate
 fi
 
 script/bootstrap
+
+git config --global --add safe.directory /workspaces/core
+git config --global --add safe.directory /workspaces/home-assistant
 
 pre-commit install
 python3 -m pip install -e . --constraint homeassistant/package_constraints.txt --use-deprecated=legacy-resolver
